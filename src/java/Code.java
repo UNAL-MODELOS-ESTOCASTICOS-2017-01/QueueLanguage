@@ -18,6 +18,7 @@ public class Code{
 
     
     private String code;
+    private String error;
     private double LQ = 0.0;
     private double L = 0.0;
     private double W = 0.0;
@@ -27,6 +28,13 @@ public class Code{
     public Code() {
     }
     
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
     
     public String getCode() {
         return code;
@@ -71,10 +79,13 @@ public class Code{
     public void process()
     {
         System.out.println(code);
-        Random rand = new Random();
-        L = rand.nextDouble();
-        LQ = rand.nextDouble();
-        W = rand.nextDouble();
-        WQ = rand.nextDouble();
+        Simulator S = new Simulator();
+        S.simulate(code);
+        
+        L = S.getL();
+        LQ = S.getLQ();
+        W = S.getW();
+        WQ = S.getWQ();
+        error = S.getError();
     }    
 }
