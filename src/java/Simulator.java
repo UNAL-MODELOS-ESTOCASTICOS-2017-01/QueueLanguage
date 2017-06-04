@@ -46,6 +46,7 @@ class Simulator {
         Simulation.addEvent(new Event(0, 0));
         while ( true ) {
             Event ev = Simulation.getNextEvent();
+            //System.out.println("Event time " + ev.getTime());
             Simulation.currentTime = ev.getTime();
             if ( ev.getType() == 0 ){ // Start
                 for(Node node : Simulation.network) {
@@ -61,11 +62,13 @@ class Simulator {
                 Simulation.addEvent(new Event(newTime, 2, ev.getNode(), ev.getCustomer(), ev.getServer()));
             }
             if ( ev.getType() == 2 ){ // Service ends
-                decideCustomerFuture(ev);
                 ev.getServer().empty = true;
+                ev.getNode().callNextCustomer();
+                decideCustomerFuture(ev);
             }
             if ( ev.getType() == 3 ){ // Arrival
                 ev.getNode().addToQueue(ev.getCustomer());
+                ev.getNode().callNextCustomer();
             }
             if ( ev.getType() == 4 ){ // End
                 closeCustomers();
@@ -78,9 +81,9 @@ class Simulator {
     public void simulate(String code) {
         if ( !compile(code) ) return;
         // YA esta el objeto simulacion armado
-        printStructure();
+        //printStructure();
         System.out.println("Numero de nodos " + Simulation.numberOfNodes);
-       // runSimulation();        
+        runSimulation();        
     } 
     public void printStructure()
     {
@@ -108,6 +111,7 @@ class Simulator {
     public void decideCustomerFuture(Event ev) {
         Customer c = ev.getCustomer();
         c.service_time += Simulation.currentTime - c.startServing;
+        c.startServing = -1;
         int u = Simulation.search(ev.getNode().getID()), v = -1;
         double r = Util.getUniform(), acc = 0;
         for ( int i = 0; i < Simulation.numberOfNodes; i ++ ) {
@@ -130,10 +134,10 @@ class Simulator {
     }
     public void closeCustomers(){
         for(Customer c : Simulation.people){
-            if ( c.startQueuing != -1 )
+            if ( c.startQueuing >= 0 )
                 c.queuing_time += Simulation.simulationTime - c.startQueuing;
-            if ( c.startServing != -1 )
-                c.service_time += Simulation.simulationTime - c.service_time;
+            if ( c.startServing >= 0 )
+                c.service_time += Simulation.simulationTime - c.startServing;
         }
     }
     public void closeServers(){
@@ -146,13 +150,22 @@ class Simulator {
     }
     public void calcStandings(){
         double totalTime = 0, queuingTime = 0, serviceTime = 0;
+        System.out.println("Total de customers " + Simulation.people.size());
         for ( Customer c : Simulation.people) {
+            if (c.getTotalTime()>Simulation.simulationTime){
+                System.out.println("Historial customer " + c.id);
+                for (Event ev : Simulation.history) {
+                    if ( ev.getCustomer() == c ) {
+                        System.out.println(ev.getTime() + " tipo " + ev.getType() + " en el nodo " + ev.getNode().ID + " tt = " + c.getTotalTime());
+                    }
+                }
+            }
             totalTime += c.getTotalTime();
             queuingTime += c.queuing_time;
         }
         Simulation.L = totalTime / Simulation.simulationTime;
-        Simulation.W = totalTime / Simulation.people.size();
         Simulation.LQ = queuingTime / Simulation.simulationTime;
+        Simulation.W = totalTime / Simulation.people.size();
         Simulation.WQ = queuingTime / Simulation.people.size();
         int nServers = 0;
         for ( Node n : Simulation.network ) {

@@ -24,6 +24,7 @@ public class Node {
     }
     
     public void start(){
+        servers = new ArrayList<>();
         for(int i = 0; i < numberOfServers; i ++ ) {
             servers.add(new Server(serverDistribution));
         }
@@ -35,17 +36,22 @@ public class Node {
     public void removeFromQueue(Customer c) {
         queue.remove(c);
         c.queuing_time += Simulation.currentTime - c.startQueuing;
+        c.startQueuing = -1;
     }
     
     public void addToQueue(Customer c) {
+        c.startQueuing = Simulation.currentTime;
+        queue.add(c);
+    }
+    
+    public void callNextCustomer(){
+        if ( queue.isEmpty() ) return;
         for(Server s : servers){
             if (s.isEmpty()){
-                Simulation.addEvent(new Event(Simulation.currentTime, 1, this, c, s));
+                Simulation.addEvent(new Event(Simulation.currentTime, 1, this, queue.get(0), s));
                 return;
             }
         }
-        c.startQueuing = Simulation.currentTime;
-        queue.add(c);
     }
 
     public int getID() {

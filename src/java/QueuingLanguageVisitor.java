@@ -53,7 +53,7 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    @Override
    public Boolean visitPropertyqd( QueuingTParser.PropertyqdContext ctx) {
        settingQueue = true;
-       visit(ctx.getChild(0));
+       visit(ctx.getChild(2));
        return true;
    }
 
@@ -105,7 +105,7 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    @Override
    public Boolean visitPropertysd( QueuingTParser.PropertysdContext ctx) {
        settingQueue = false;
-       visit(ctx.getChild(0));
+       visit(ctx.getChild(2));
        return true;
    }
 

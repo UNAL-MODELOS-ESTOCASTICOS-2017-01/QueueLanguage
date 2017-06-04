@@ -19,21 +19,8 @@ public class Customer {
         queuing_time = 0;
         service_time = 0;
         id = AUTO_ID ++;
+        startQueuing = startServing = -1;
         Simulation.people.add(this);
-    }
-    
-    public void startQueuing(double time) {
-        startQueuing = time;
-    }
-    
-    public void startServing(double time) {
-        startServing = time;
-        startQueuing = -1;
-    }
-    
-    public void finishServing(double time) {
-        service_time += time - startServing;
-        startServing = -1;
     }
     
     public double getTotalTime(){

@@ -32,13 +32,14 @@ public class Simulation {
         network = new ArrayList<>();
         matrix = new double[numberOfNodes + 2][numberOfNodes + 2];
         Q = new PriorityQueue<Event>(100, (Event e1, Event e2) -> {
-            if ( e1.getTime() < e2.getTime() ) return 1;
-            if ( e1.getTime() > e2.getTime() ) return -1;
-            if ( e1.getType() < e2.getType() ) return 1;
+            if ( e1.getTime() > e2.getTime() ) return 1;
+            if ( e1.getTime() < e2.getTime() ) return -1;
+            if ( e1.getType() > e2.getType() ) return 1;
             return -1;
         });
         history = new ArrayList<>();
         people = new ArrayList<>();
+        Customer.AUTO_ID = 0;
     }
     
     public static void addEvent(Event v){

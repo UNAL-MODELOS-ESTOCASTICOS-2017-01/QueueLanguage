@@ -10,7 +10,6 @@
  */
 public class Server {
     public Distribution dist;
-    public double a, b, lambda;
     public boolean empty;
     public double startTime;
     public double timeInService;
