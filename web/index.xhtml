@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Queue language</title>
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>
@@ -79,7 +80,13 @@
                 <p>Cantidad promedio de tiempo que un cliente gasta esperando en cola:  #{code.WQ}</p>
                 <p>Tiempo promedio que los servidores se encontraron vacíos: </p>
                 <br></br><br></br><br></br><br></br><br></br><br></br>
-                <p>Resultado de compilacion:  #{code.error}</p>
+                <p>Resultado de compilacion: </p>
+                <c:if test="#{code.error == 'Successful compilation'}">
+                    <p style="color: #0f0">#{code.error}</p>
+                </c:if>
+                <c:if test="#{code.error != 'Successful compilation'}">
+                    <p style="color: #f00">#{code.error}</p>
+                </c:if>
             </div>
         </div>
     </div>
