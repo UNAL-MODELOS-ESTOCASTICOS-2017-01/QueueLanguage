@@ -18,12 +18,15 @@ public class Simulation {
     private Random rand = new Random();
     public static int numberOfNodes;
     public static int simulationTime;
+    public static double currentTime;
     public static ArrayList<Node> network;
     public static PriorityQueue<Event> Q;
     public static ArrayList<Event> history;
+    public static ArrayList<Customer> people;
     public static double[][] matrix;
     public static int from, to;
     public static double prob;
+    public static double L, LQ, W, WQ;
     
     public static void init(){
         network = new ArrayList<>();
@@ -35,6 +38,7 @@ public class Simulation {
             return -1;
         });
         history = new ArrayList<>();
+        people = new ArrayList<>();
     }
     
     public static void addEvent(Event v){

@@ -21,6 +21,30 @@ public class Node {
         queue = new ArrayList<>();
         queueDistribution = null;
     }
+    
+    public void start(){
+        for(Server s : servers) {
+            s.dist = serverDistribution;
+        }
+        if (queueDistribution != null) {
+            queueDistribution.generateArrivals(this);
+        }
+    }
+    
+    public void removeFromQueue(Customer c) {
+        queue.remove(c);
+        c.queuing_time += Simulation.currentTime - c.startQueuing;
+    }
+    
+    public void addToQueue(Customer c) {
+        for(Server s : servers){
+            if (s.isEmpty()){
+                Simulation.addEvent(new Event(Simulation.currentTime, 1, this, c, s));
+                return;
+            }
+        }
+        queue.add(c);
+    }
 
     public int getID() {
         return ID;
@@ -52,7 +76,7 @@ public class Node {
 
     public void setQueue(int numberOfCustomers) {
         for ( int i = 0; i < numberOfCustomers; i ++ ) {
-            queue.add(new Customer());
+            Simulation.addEvent(new Event(0, 3, this, new Customer(), null));
         }
     }
 

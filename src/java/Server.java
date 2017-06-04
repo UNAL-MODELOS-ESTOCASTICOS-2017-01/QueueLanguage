@@ -11,7 +11,15 @@
 public class Server {
     public Distribution dist;
     public double a, b, lambda;
+    public boolean empty;
+    public double timeInService;
+    
     public Server(Distribution d) {
         dist = d;
+        empty = true;
+    }
+    
+    public boolean isEmpty(){
+        return empty;
     }
 }

@@ -9,7 +9,7 @@
  * @author dicr1
  */
 public class Event {
-    private long time;
+    private double time;
     // type 0: Start
     // type 1: Service begins
     // type 2: Service ends
@@ -19,18 +19,23 @@ public class Event {
     private Node node;
     private Customer customer;
     private Server server;
-    public Event(long t, Node n, Customer c, Server s){
+    public Event(double t, int type) {
+        this.type = type;
+        this.time = t;
+    }
+    public Event(double t, int type, Node n, Customer c, Server s){
         time = t;
         node = n;
         customer = c;
         server = s;
+        this.type = type;
     }
 
-    public long getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(double time) {
         this.time = time;
     }
 

@@ -50,11 +50,16 @@ public class Util {
         return rand.nextGaussian();
     }
     //Uniforme
-    public static double getUniforme(){
-        return getUniforme(0.0, 1.0);
+    public static double getUniform(){
+        return getUniform(0.0, 1.0);
     }
-    public static double getUniforme(double a, double b) {
-        return rand.nextDouble();
+    //generate uniform variables
+    public static double getUniform(double a, double b) {
+        return (rand.nextDouble()*(b-a))+a;
     }
-
+    //generate exponential variables
+    public static double getExponential(double lambda)
+    {
+        return -(1.0/lambda)*Math.log(1.0 - rand.nextDouble());
+    }
 }

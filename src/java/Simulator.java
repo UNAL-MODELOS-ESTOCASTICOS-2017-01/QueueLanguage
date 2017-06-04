@@ -41,23 +41,31 @@ class Simulator {
         return true;
     }
     private void runSimulation() {
-        
+        Simulation.addEvent(new Event(Simulation.simulationTime, 4));
+        Simulation.addEvent(new Event(0, 0));
         while ( true ) {
             Event ev = Simulation.getNextEvent();
+            Simulation.currentTime = ev.getTime();
             if ( ev.getType() == 0 ){ // Start
-                
+                for(Node node : Simulation.network) {
+                    node.start();
+                }
             }
             if ( ev.getType() == 1 ){ // Service begins
-                
+                double newTime = ev.getTime() + ev.getServer().dist.getRand();
+                ev.getNode().removeFromQueue(ev.getCustomer());
+                ev.getCustomer().startServing(ev.getTime());
+                ev.getServer().empty = false;
+                Simulation.addEvent(new Event(newTime, 2, ev.getNode(), ev.getCustomer(), ev.getServer()));
             }
             if ( ev.getType() == 2 ){ // Service ends
-                
+                ev.getServer().empty = true;
             }
             if ( ev.getType() == 3 ){ // Arrival
-                
+                ev.getNode().addToQueue(ev.getCustomer());
             }
             if ( ev.getType() == 4 ){ // End
-                
+                break;
             }
         }
     }
@@ -67,16 +75,16 @@ class Simulator {
        // runSimulation();        
     }   
     public double getL(){
-        return rand.nextDouble();
+        return Simulation.L;
     }
     public double getLQ(){
-        return rand.nextDouble();
+        return Simulation.LQ;
     }
     public double getW(){
-        return rand.nextDouble();
+        return Simulation.W;
     }
     public double getWQ(){
-        return rand.nextDouble();
+        return Simulation.WQ;
     }
     public String getError(){
         return error;

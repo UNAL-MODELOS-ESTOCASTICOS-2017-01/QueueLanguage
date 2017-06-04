@@ -21,7 +21,6 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
         return true;
     }
 
-
    @Override
    public Boolean visitProb(QueuingTParser.ProbContext ctx) {
        System.out.println("La probabilidad de conexion es " + ctx.getChild(2).getText());
