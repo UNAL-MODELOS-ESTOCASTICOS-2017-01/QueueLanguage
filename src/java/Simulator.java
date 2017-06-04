@@ -34,9 +34,9 @@ class Simulator {
         }
         
         QueuingLanguageVisitor visitor = new QueuingLanguageVisitor();
-        System.out.println("Hola");
+        System.out.println("Starting code analysis");
         visitor.visit(tree);
-        System.out.println("Adios");
+        System.out.println("Code analysis finished");
         System.out.println(tree.toStringTree(parser)); // print LISP-style tree
         error = "Successful compilation";
         return true;
@@ -63,6 +63,7 @@ class Simulator {
             }
             if ( ev.getType() == 2 ){ // Service ends
                 ev.getServer().empty = true;
+                ev.getServer().timeInService += ev.getTime() - ev.getServer().startTime;
                 ev.getNode().callNextCustomer();
                 decideCustomerFuture(ev);
             }
@@ -152,14 +153,6 @@ class Simulator {
         double totalTime = 0, queuingTime = 0, serviceTime = 0;
         System.out.println("Total de customers " + Simulation.people.size());
         for ( Customer c : Simulation.people) {
-            if (c.getTotalTime()>Simulation.simulationTime){
-                System.out.println("Historial customer " + c.id);
-                for (Event ev : Simulation.history) {
-                    if ( ev.getCustomer() == c ) {
-                        System.out.println(ev.getTime() + " tipo " + ev.getType() + " en el nodo " + ev.getNode().ID + " tt = " + c.getTotalTime());
-                    }
-                }
-            }
             totalTime += c.getTotalTime();
             queuingTime += c.queuing_time;
         }

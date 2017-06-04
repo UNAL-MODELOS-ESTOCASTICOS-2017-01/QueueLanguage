@@ -23,6 +23,7 @@ public class Code{
     private double L = 0.0;
     private double W = 0.0;
     private double WQ = 0.0;
+    private double usage = 0.0;
 
     
     public Code() {
@@ -76,6 +77,14 @@ public class Code{
         this.WQ = WQ;
     }
  
+    public double getUsage() {
+        return usage;
+    }
+
+    public void setUsage(double usage) {
+        this.usage = usage;
+    }
+    
     public void process()
     {
         System.out.println(code);
@@ -87,5 +96,6 @@ public class Code{
         W = S.getW();
         WQ = S.getWQ();
         error = S.getError();
+        usage = S.getUsage();
     }    
 }
