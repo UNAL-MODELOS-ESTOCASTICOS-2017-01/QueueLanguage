@@ -140,7 +140,7 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    @Override
    public Boolean visitPropertynumberofservers( QueuingTParser.PropertynumberofserversContext ctx) {
        Node curr = Simulation.getLast();
-       curr.setServers(new ArrayList<Server>(Integer.parseInt(ctx.INT().getText())));
+       curr.setNumberOfServers(Integer.parseInt(ctx.INT().getText()));
        return true;
    }
 

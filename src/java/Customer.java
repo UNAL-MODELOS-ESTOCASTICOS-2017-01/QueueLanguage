@@ -36,7 +36,7 @@ public class Customer {
         startServing = -1;
     }
     
-    public double getTiempoTotal(){
+    public double getTotalTime(){
         return queuing_time + service_time;
     }
 }

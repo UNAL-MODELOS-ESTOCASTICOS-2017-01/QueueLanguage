@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class Node {
     public int ID;
+    public int numberOfServers;
     public Distribution serverDistribution, queueDistribution;
     public ArrayList<Customer> queue;
     public ArrayList<Server> servers;
@@ -23,8 +24,8 @@ public class Node {
     }
     
     public void start(){
-        for(Server s : servers) {
-            s.dist = serverDistribution;
+        for(int i = 0; i < numberOfServers; i ++ ) {
+            servers.add(new Server(serverDistribution));
         }
         if (queueDistribution != null) {
             queueDistribution.generateArrivals(this);
@@ -92,4 +93,9 @@ public class Node {
     public int getNumberOfServers(){
         return servers.size();
     }
+
+    public void setNumberOfServers(int numberOfServers) {
+        this.numberOfServers = numberOfServers;
+    }
+    
 }

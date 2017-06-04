@@ -26,7 +26,7 @@ public class Simulation {
     public static double[][] matrix;
     public static int from, to;
     public static double prob;
-    public static double L, LQ, W, WQ;
+    public static double L, LQ, W, WQ, usage;
     
     public static void init(){
         network = new ArrayList<>();
