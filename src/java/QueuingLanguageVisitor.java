@@ -58,7 +58,11 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    }
 
    @Override
-   public Boolean visitFooter( QueuingTParser.FooterContext ctx) { return true; }
+   public Boolean visitFooter( QueuingTParser.FooterContext ctx) 
+   { 
+       visit(ctx.getChild(0));
+       return true; 
+   }
 
    @Override
    public Boolean visitExpd( QueuingTParser.ExpdContext ctx) {

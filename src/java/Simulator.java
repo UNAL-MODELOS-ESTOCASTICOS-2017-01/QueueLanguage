@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Random;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
@@ -73,9 +74,33 @@ class Simulator {
     public void simulate(String code) {
         if ( !compile(code) ) return;
         // YA esta el objeto simulacion armado
+        printStructure();
         System.out.println("Numero de nodos " + Simulation.numberOfNodes);
        // runSimulation();        
     } 
+    public void printStructure()
+    {
+        System.out.println("------------------------------------------------------");  
+        System.out.println("Numbers of nodes: "+Simulation.numberOfNodes);  
+        System.out.println("Simulation time: "+Simulation.simulationTime);
+        
+        for( int i = 0; i < Simulation.numberOfNodes; i++ )
+        {
+             System.out.println("node :"+Simulation.network.get(i).ID);
+         //   System.out.println("queue distribution (a, b, lambda) : "+Simulation.network.get(i).queueDistribution.a+" "+Simulation.network.get(i).queueDistribution.b+" "+Simulation.network.get(i).queueDistribution.lambda);
+         //   System.out.println("server distribution (a, b, lambda) : "+Simulation.network.get(i).serverDistribution.a+" "+Simulation.network.get(i).serverDistribution.b+" "+Simulation.network.get(i).serverDistribution.lambda);
+             System.out.println("customer in queue: "+Simulation.network.get(i).queue.size());
+             System.out.println("number of servers: "+Simulation.network.get(i).servers.size());
+             System.out.println();        
+        }
+        System.out.println("Probability matrix");
+        for( int i = 0; i < Simulation.matrix.length; i++  )
+        {
+            System.out.println(Arrays.toString(Simulation.matrix[i]));
+        }
+        System.out.println("------------------------------------------------------");  
+        
+    }
     public void decideCustomerFuture(Event ev) {
         Customer c = ev.getCustomer();
         c.service_time += Simulation.currentTime - c.startServing;
