@@ -43,6 +43,7 @@ public class Node {
                 return;
             }
         }
+        c.startQueuing = Simulation.currentTime;
         queue.add(c);
     }
 

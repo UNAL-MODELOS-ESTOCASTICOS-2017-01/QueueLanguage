@@ -77,7 +77,10 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    }
 
    @Override
-   public Boolean visitDist( QueuingTParser.DistContext ctx) { return true; }
+   public Boolean visitDist( QueuingTParser.DistContext ctx) {
+       visit(ctx.getChild(0));
+       return true;
+   }
 
    @Override
    public Boolean visitUnd( QueuingTParser.UndContext ctx) {
@@ -90,7 +93,10 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    }
 
    @Override
-   public Boolean visitStime( QueuingTParser.StimeContext ctx) { return true; }
+   public Boolean visitStime( QueuingTParser.StimeContext ctx) {
+       Simulation.simulationTime = Integer.parseInt(ctx.INT().getText());
+       return true;
+   }
 
    @Override
    public Boolean visitPropertysd( QueuingTParser.PropertysdContext ctx) {

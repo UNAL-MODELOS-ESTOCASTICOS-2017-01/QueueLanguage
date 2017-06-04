@@ -54,11 +54,12 @@ class Simulator {
             if ( ev.getType() == 1 ){ // Service begins
                 double newTime = ev.getTime() + ev.getServer().dist.getRand();
                 ev.getNode().removeFromQueue(ev.getCustomer());
-                ev.getCustomer().startServing(ev.getTime());
+                ev.getCustomer().startServing = ev.getTime();
                 ev.getServer().empty = false;
                 Simulation.addEvent(new Event(newTime, 2, ev.getNode(), ev.getCustomer(), ev.getServer()));
             }
             if ( ev.getType() == 2 ){ // Service ends
+                decideCustomerFuture(ev);
                 ev.getServer().empty = true;
             }
             if ( ev.getType() == 3 ){ // Arrival
@@ -71,9 +72,18 @@ class Simulator {
     }
     public void simulate(String code) {
         if ( !compile(code) ) return;
+        // YA esta el objeto simulacion armado
         System.out.println("Numero de nodos " + Simulation.numberOfNodes);
        // runSimulation();        
-    }   
+    } 
+    public void decideCustomerFuture(Event ev) {
+        Customer c = ev.getCustomer();
+        c.service_time += Simulation.currentTime - c.startServing;
+        int u = Simulation.search(ev.getNode().getID());
+        for ( int i = 0; i < Simulation.numberOfNodes; i ++ ) {
+            
+        }
+    }
     public double getL(){
         return Simulation.L;
     }

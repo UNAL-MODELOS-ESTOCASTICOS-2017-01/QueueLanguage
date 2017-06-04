@@ -28,7 +28,6 @@ public class Customer {
     
     public void startServing(double time) {
         startServing = time;
-        queuing_time += time - startQueuing;
         startQueuing = -1;
     }
     
