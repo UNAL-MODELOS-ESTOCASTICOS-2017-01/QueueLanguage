@@ -126,11 +126,11 @@ class Simulator {
                 backTime = auxE.getTime();
                 if ( auxE.getType() == 1 )
                 {
-                    print.println("e1 n"+auxE.getNode().ID+"s"+0);
+                    print.println("e1 "+auxE.getServer().id);
                 }
                 else if ( auxE.getType() == 2)
                 {
-                    print.println("e2 n"+auxE.getNode().ID+"s"+0);
+                    print.println("e2 "+auxE.getServer().id);
                 }
                 else 
                 {
