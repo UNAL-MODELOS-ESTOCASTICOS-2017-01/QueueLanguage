@@ -4,16 +4,13 @@
 var nodesArray = [];
 var edgesArray = [];
 var currentLine = 0;
-var startLine;
 var response;
 function start() {
   // Block buttons when the simulation starts
-  $("#startButton").prop("disabled",true);
-  $("#uploadFile").prop("disabled",true);
-  currentLine=startLine;
+  $("#startButton").prop("disabled", true);
+  $("#uploadFile").prop("disabled", true);
   var cy = cytoscape({
     container: document.getElementById('cy'),
-
     boxSelectionEnabled: false,
     autounselectify: true,
 
@@ -30,11 +27,11 @@ function start() {
         'line-color': '#ddd',
         'target-arrow-color': '#ddd'
       })
-      .selector('.busy')
+      .selector('.busy') // Busy server
       .css({
         'background-color': '#ff0000'
       })
-      .selector('.qbusy')
+      .selector('.qbusy') // Busy queue
       .css({
         'background-color': '#00ff00'
       }),
@@ -51,9 +48,11 @@ function start() {
       padding: 10
     }
   });
+  // Function to add message to a node
   var addQTip = function(selector) {
     cy.nodes('[id*="' + selector + '"]').each(function(value) {
       value.qtip({
+          // Content of the message
           content: 'Count: ' + value.data().count,
           position: {
             my: 'top center',
@@ -70,6 +69,7 @@ function start() {
       );
     });
   };
+  // Read a line of the input
   var readSimulationLine = function() {
     if (currentLine < response.length) {
       var line = response[currentLine];
@@ -80,32 +80,42 @@ function start() {
         line = line.split(' ');
         // Type event
         switch (line[0]) {
+          // Server occupied
           case 'e1':
             var node = line[1].substr(0, line[1].indexOf('s'));
+            // Node's queue has one less element
             cy.$('#q' + node).data().count--;
+            // If the node's queue count is 0, then the node's queue is free
             if (cy.$('#q' + node).data().count === 0)
               cy.$('#q' + node).removeClass('qbusy');
+            // Change the message of the node's queue
             addQTip('q' + node);
+            // Now the server is occopied
             cy.$('#' + line[1]).data().count++;
             cy.$('#' + line[1]).addClass('busy');
             break;
           case 'e2':
+            // Now the server is free
             cy.$('#' + line[1]).data().count--;
             cy.$('#' + line[1]).removeClass('busy');
             break;
           case 'e3':
+            // A new element has arrived to the node's queue
             cy.$('#q' + line[1]).data().count++;
             cy.$('#q' + line[1]).addClass('qbusy');
+            // Update the message of the node's queue
             addQTip('q' + line[1]);
             break;
         }
       }
+      // Change of line
       currentLine++;
       setTimeout(readSimulationLine, 1000);
     }
-    else{
-      $("#startButton").prop("disabled",false);
-      $("#uploadFile").prop("disabled",false);
+    else {
+      // When the simulation is over, the buttons are re-activated
+      $("#startButton").prop("disabled", false);
+      $("#uploadFile").prop("disabled", false);
     }
   }
   // Add message to queues
@@ -114,7 +124,7 @@ function start() {
 }
 function addFile(e) {
   var file = $("#uploadFile")[0].files[0];
-  if(file==='')
+  if (file === '')
     return;
   var reader = new FileReader();
   reader.onload = function(e) {
@@ -148,16 +158,14 @@ function addFile(e) {
         /* Adding edges (connexions)
          if [i,j] then connexion between node-i and node-j
          */
-        if (connexions[j - 1].indexOf("1")!==-1) {
+        if (connexions[j - 1].indexOf("1") !== -1) {
           source = 'n' + i;
           target = 'qn' + j;
           edgesArray.push({data: {id: source + target, source: source, target: target}});
         }
       }
     }
-    startLine=currentLine;
-    $("#startButton").prop("disabled",false);
+    $("#startButton").prop("disabled", false);
   }
   reader.readAsBinaryString(file);
-
 }
