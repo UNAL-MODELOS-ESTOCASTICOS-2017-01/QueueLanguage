@@ -5,7 +5,7 @@
 }
 
 .result{
-    width: 50%; 
+    width: 50%;
     float:  left;
 }
 
@@ -24,7 +24,7 @@ body{
     margin: 2px 2px;
     cursor: pointer;
     border: none;
-    transition: background-color 1s;  
+    transition: background-color 1s;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -76,13 +76,18 @@ form{
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: #ccc;  
+    background: #ccc;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #999;  
+    background: #999;
 }
 
 .CodeMirror {
     border: 2px inset #dee;
+}
+#cy {
+    height: 100%;
+    width: 100%;
+    position: absolute;
 }
