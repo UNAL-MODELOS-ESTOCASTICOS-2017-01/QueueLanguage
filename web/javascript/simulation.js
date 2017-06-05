@@ -87,12 +87,10 @@ function start() {
             addQTip('q' + node);
             cy.$('#' + line[1]).data().count++;
             cy.$('#' + line[1]).addClass('busy');
-            addQTip(line[1]);
             break;
           case 'e2':
             cy.$('#' + line[1]).data().count--;
             cy.$('#' + line[1]).removeClass('busy');
-            addQTip(line[1]);
             break;
           case 'e3':
             cy.$('#q' + line[1]).data().count++;
@@ -111,9 +109,6 @@ function start() {
   }
   // Add message to queues
   addQTip("q");
-  // Add message to servers
-  addQTip("s");
-  addQTip("end");
   readSimulationLine();
 }
 function addFile(e) {
