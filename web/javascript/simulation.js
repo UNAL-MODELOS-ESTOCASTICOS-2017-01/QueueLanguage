@@ -4,54 +4,11 @@
 var nodesArray = [];
 var edgesArray = [];
 var currentLine = 0;
+var startLine;
 var response;
-var rawFile = new XMLHttpRequest();
-rawFile.open('GET', '../history.txt', false);
-rawFile.onreadystatechange = function() {
-  if (rawFile.readyState === 4) {
-    if (rawFile.status === 200 || rawFile.status == 0) {
-      // Read file's text, split with breakline
-      response = rawFile.responseText.split('\n');
-      // Current line
-      var numNodes = parseInt(response[currentLine]);
-      currentLine++;
-      // Adding nodes and node's queues
-      for (var i = 1; i <= numNodes; i++) {
-        nodesArray.push({data: {id: 'qn' + i, count: 0}});
-        nodesArray.push({data: {id: 'n' + i}});
-      }
-      // Adding node's servers
-      var servers = response[currentLine].split(' ');
-      currentLine++;
-      for (var i = 1; i <= servers.length; i++) {
-        for (var j = 1; j <= servers[i - 1]; j++) {
-          nodesArray.push({data: {id: 'n' + i + 's' + j, parent: 'n' + i, count: 0}});
-        }
-      }
-      // Matrix from servers per node
-      for (var i = 1; i <= numNodes; i++) {
-        var source = 'qn' + i;
-        var target = 'n' + i;
-        // Adding connexion between node and node's queue
-        edgesArray.push({data: {id: source + target, source: source, target: target}});
-        var connexions = response[i + currentLine - 1].split(' ');
-        currentLine++;
-        for (var j = 1; j <= connexions.length; j++) {
-          /* Adding edges (connexions)
-           if [i,j] then connexion between node-i and node-j
-           */
-          if (connexions[j - 1] === '1') {
-            source = 'n' + i;
-            target = 'qn' + j;
-            edgesArray.push({data: {id: source + target, source: source, target: target}});
-          }
-        }
-      }
-    }
-  }
-}
-rawFile.send(null);
 function start() {
+  $("#startButton").prop("disabled",true);
+  currentLine=startLine;
   var cy = cytoscape({
     container: document.getElementById('cy'),
 
@@ -153,4 +110,54 @@ function start() {
   addQTip("s");
   addQTip("end");
   readSimulationLine();
+  $("#startButton").prop("disabled",false);
+}
+function addFile(e) {
+  var file = $("#uploadFile")[0].files[0];
+  if(file==='')
+    return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    // Read file's text, split with breakline
+    response = reader.result.split('\n');
+    // Current line
+    var numNodes = parseInt(response[currentLine]);
+    currentLine++;
+    // Adding nodes and node's queues
+    for (var i = 1; i <= numNodes; i++) {
+      nodesArray.push({data: {id: 'qn' + i, count: 0}});
+      nodesArray.push({data: {id: 'n' + i}});
+    }
+    // Adding node's servers
+    var servers = response[currentLine].split(' ');
+    currentLine++;
+    for (var i = 1; i <= servers.length; i++) {
+      for (var j = 1; j <= servers[i - 1]; j++) {
+        nodesArray.push({data: {id: 'n' + i + 's' + j, parent: 'n' + i, count: 0}});
+      }
+    }
+    // Matrix from servers per node
+    for (var i = 1; i <= numNodes; i++) {
+      var source = 'qn' + i;
+      var target = 'n' + i;
+      // Adding connexion between node and node's queue
+      edgesArray.push({data: {id: source + target, source: source, target: target}});
+      var connexions = response[i + currentLine - 1].split(' ');
+      currentLine++;
+      for (var j = 1; j <= connexions.length; j++) {
+        /* Adding edges (connexions)
+         if [i,j] then connexion between node-i and node-j
+         */
+        if (connexions[j - 1] === '1') {
+          source = 'n' + i;
+          target = 'qn' + j;
+          edgesArray.push({data: {id: source + target, source: source, target: target}});
+        }
+      }
+    }
+    startLine=currentLine;
+    $("#startButton").prop("disabled",false);
+  }
+  reader.readAsBinaryString(file);
+
 }

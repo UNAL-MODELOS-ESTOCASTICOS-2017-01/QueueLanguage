@@ -15,7 +15,8 @@
 </head>
 <body>
 <div>
-  <button onclick="start()">Iniciar</button>
+  <input type="file" onchange="addFile()" id="uploadFile">
+  <button onclick="start()" id="startButton" disabled>Iniciar</button>
   <p id="time"></p>
 </div>
 
