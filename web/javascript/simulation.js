@@ -7,6 +7,7 @@ var currentLine = 0;
 var startLine;
 var response;
 function start() {
+  // Block buttons when the simulation starts
   $("#startButton").prop("disabled",true);
   $("#uploadFile").prop("disabled",true);
   currentLine=startLine;
@@ -141,13 +142,13 @@ function addFile(e) {
       var target = 'n' + i;
       // Adding connexion between node and node's queue
       edgesArray.push({data: {id: source + target, source: source, target: target}});
-      var connexions = response[i + currentLine - 1].split(' ');
+      var connexions = response[currentLine].split(' ');
       currentLine++;
       for (var j = 1; j <= connexions.length; j++) {
         /* Adding edges (connexions)
          if [i,j] then connexion between node-i and node-j
          */
-        if (connexions[j - 1] === '1') {
+        if (connexions[j - 1].indexOf("1")!==-1) {
           source = 'n' + i;
           target = 'qn' + j;
           edgesArray.push({data: {id: source + target, source: source, target: target}});
