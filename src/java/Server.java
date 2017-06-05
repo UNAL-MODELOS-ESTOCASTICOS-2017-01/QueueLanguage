@@ -19,7 +19,7 @@ public class Server {
         dist = d;
         empty = true;
         startTime = -1;
-        id = "n"+Integer.toString(node)+"s"+Integer.toString(pos+1);
+        id = "n"+Integer.toString(node+1)+"s"+Integer.toString(pos+1);
         System.out.println("id " + id);
     }
     
