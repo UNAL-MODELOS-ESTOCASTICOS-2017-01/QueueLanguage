@@ -26,7 +26,7 @@ public class Node {
     public void start(){
         servers = new ArrayList<>();
         for(int i = 0; i < numberOfServers; i ++ ) {
-            servers.add(new Server(serverDistribution,ID,i));
+            servers.add(new Server(serverDistribution,Simulation.search(ID),i));
         }
         if (queueDistribution != null) {
             queueDistribution.generateArrivals(this);

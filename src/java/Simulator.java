@@ -88,10 +88,11 @@ class Simulator {
         System.out.println("Numero de nodos " + Simulation.numberOfNodes);
         runSimulation(); 
         
+        // Creacion del archivo de la simulacion para futura visualizacion 
         try
         {
             
-            PrintWriter print = new PrintWriter(new File("/home/user/NetBeansProjects/QueueLanguage/history.txt"));
+            PrintWriter print = new PrintWriter(new File("C:\\Users\\dicr1\\Documents\\Repositorios git\\QueueLanguage\\history2.txt"));
             print.println(Simulation.numberOfNodes);
             String line1 = "";
             for( int i = 0; i < Simulation.numberOfNodes; i++ )
@@ -99,7 +100,7 @@ class Simulator {
                 line1 += " "+Simulation.network.get(i).numberOfServers;
             }
             print.println(line1.trim());
-            
+            // genera la matriz de adyacencia a partir de la de probabilidades
             for( int i = 0; i < Simulation.matrix.length-2; i++ )
             {
                 line1 = "";
@@ -113,6 +114,7 @@ class Simulator {
                 print.println(line1.trim());
             }
             double backTime = 0;
+            // se anaden todos los eventos de la simulacion al archivo
             for( int i = 0; i < Simulation.history.size(); i++ )
             {
                 Event auxE = Simulation.history.get(i);
