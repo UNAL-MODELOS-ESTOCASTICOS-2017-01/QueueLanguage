@@ -13,11 +13,14 @@ public class Server {
     public boolean empty;
     public double startTime;
     public double timeInService;
+    public String id;
     
-    public Server(Distribution d) {
+    public Server(Distribution d, int node, int pos) {
         dist = d;
         empty = true;
         startTime = -1;
+        id = "n"+Integer.toString(node)+"s"+Integer.toString(pos+1);
+        System.out.println("id " + id);
     }
     
     public boolean isEmpty(){
