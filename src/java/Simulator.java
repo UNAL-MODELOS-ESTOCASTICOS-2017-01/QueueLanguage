@@ -1,4 +1,6 @@
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Random;
 import org.antlr.v4.runtime.*;
@@ -84,7 +86,63 @@ class Simulator {
         // YA esta el objeto simulacion armado
         //printStructure();
         System.out.println("Numero de nodos " + Simulation.numberOfNodes);
-        runSimulation();   
+        runSimulation(); 
+        
+        try
+        {
+            
+            PrintWriter print = new PrintWriter(new File("/home/user/NetBeansProjects/QueueLanguage/history.txt"));
+            print.println(Simulation.numberOfNodes);
+            String line1 = "";
+            for( int i = 0; i < Simulation.numberOfNodes; i++ )
+            {
+                line1 += " "+Simulation.network.get(i).numberOfServers;
+            }
+            print.println(line1.trim());
+            
+            for( int i = 0; i < Simulation.matrix.length-2; i++ )
+            {
+                line1 = "";
+                for( int j = 0; j < Simulation.matrix[i].length-2; j++ )
+                {
+                    if ( Simulation.matrix[i][j] == 0.0 )
+                        line1 += " 0";
+                    else
+                        line1 += " 1";
+                }
+                print.println(line1.trim());
+            }
+            double backTime = 0;
+            for( int i = 0; i < Simulation.history.size(); i++ )
+            {
+                Event auxE = Simulation.history.get(i);
+             
+                if ( auxE.getType() == 0 || auxE.getType() == 4)
+                {
+                    continue;
+                }
+                if ( backTime != auxE.getTime() )
+                    print.println(auxE.getTime());
+                backTime = auxE.getTime();
+                if ( auxE.getType() == 1 )
+                {
+                    print.println("e1 n"+auxE.getNode().ID+"s"+0);
+                }
+                else if ( auxE.getType() == 2)
+                {
+                    print.println("e2 n"+auxE.getNode().ID+"s"+0);
+                }
+                else 
+                {
+                    print.println("e3 n"+auxE.getNode().ID);
+                }
+                
+            }
+            print.close();
+        }catch(Exception e)
+        {
+            
+        }
     } 
     public void printStructure()
     {
