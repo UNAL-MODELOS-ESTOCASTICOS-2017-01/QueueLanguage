@@ -1,74 +1,77 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>
-        <title>Queue language</title>
-        <link rel="stylesheet" type="text/css" href="styles/style.css"/>
-        <link rel="stylesheet" href="styles/github-gist.css"/>
-        <script src="javascript/loadcode.js" type="text/javascript"></script>
-        <script src="javascript/highlight.pack.js" type="text/javascript"></script>        
-        <script>hljs.initHighlightingOnLoad();</script>
+<h:head>
+    <title>Queue language</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    <link rel="stylesheet" href="styles/github-gist.css"/>
+    <script src="javascript/loadcode.js" type="text/javascript"></script>
+    <script src="javascript/highlight.pack.js" type="text/javascript"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
-        <!-- Text Area syntax highlight -->
-        <link rel="stylesheet" href="codemirror/codemirror.css"/>
-        <link rel="stylesheet" href="codemirror/neo.css"/>
-        <script src="codemirror/codemirror.js"></script>
-        <script src="codemirror/clike.js"></script>
-        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
-        
-        
-        <link rel="stylesheet" href="styles/bootstrap.min.css"/>
-    </h:head>
-    <h:body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
+    <!-- Text Area syntax highlight -->
+    <link rel="stylesheet" href="codemirror/codemirror.css"/>
+    <link rel="stylesheet" href="codemirror/neo.css"/>
+    <script src="codemirror/codemirror.js"></script>
+    <script src="codemirror/clike.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
 
-              <!-- Brand and toggle get grouped for better mobile display -->
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
+
+    <link rel="stylesheet" href="styles/bootstrap.min.css"/>
+</h:head>
+<h:body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-              </div>
+            </div>
 
-              <!-- Collect the nav links, forms, and other content for toggling -->
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
 
-                  <li><a href="#">Menú</a></li>
-                  <li><a href="#">Tutorial</a></li>
-                  <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Menú</a></li>
+                    <li><a href="#">Tutorial</a></li>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="simulation.html">Simulación</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="https://github.com/UNAL-MODELOS-ESTOCASTICOS-2017-01">
-                          <img alt="Github" src="images/GitHub-Mark-32px.png" height="25px" width="25px"/>
-                  </a></li>
+                    <li><a href="https://github.com/UNAL-MODELOS-ESTOCASTICOS-2017-01">
+                        <img alt="Github" src="images/GitHub-Mark-32px.png" height="25px" width="25px"/>
+                    </a></li>
 
                 </ul>
-              </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-          </nav>
-        <center>
-            <h1>Queue Language</h1>
-        </center>
-        <br></br>
-        <div class="container">
-         <div class="row">
-            
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <center>
+        <h1>Queue Language</h1>
+    </center>
+    <br></br>
+    <div class="container">
+        <div class="row">
+
             <div class="col-md-6">
                 <h:form id="form">
 
-                        <h:inputTextarea id="input" value="#{code.code}" cols="30" rows="10" />
-                        <br></br>
-                        <h:commandButton class="btn btn-lg btn-success" value="Simular" action="#{code.process()}">
+                    <h:inputTextarea id="input" value="#{code.code}" cols="30" rows="10"/>
+                    <br></br>
+                    <h:commandButton class="btn btn-lg btn-success" value="Simular" action="#{code.process()}">
 
-                        </h:commandButton>
+                    </h:commandButton>
 
 
                 </h:form>
@@ -78,13 +81,13 @@
                     <p>Average number of customers in the system: #{code.l}</p>
                 </c:if>
                 <c:if test="#{code.showLQ}">
-                    <p>Average number of customers waiting in queue:  #{code.LQ}</p>
+                    <p>Average number of customers waiting in queue: #{code.LQ}</p>
                 </c:if>
                 <c:if test="#{code.showW}">
-                    <p>Average amount of time a customer spend in the system:  #{code.w}</p>
+                    <p>Average amount of time a customer spend in the system: #{code.w}</p>
                 </c:if>
                 <c:if test="#{code.showWQ}">
-                    <p>Average amount of time a customer spend waiting in queue:  #{code.WQ}</p>
+                    <p>Average amount of time a customer spend waiting in queue: #{code.WQ}</p>
                 </c:if>
                 <c:if test="#{code.showUsage}">
                     <p>Servers usage: #{code.usage}</p>
@@ -101,16 +104,16 @@
         </div>
     </div>
     <script>
-        var javaEditor = CodeMirror.fromTextArea(document.getElementById("form:input"), {
-            height: 1000,
-            lineNumbers: true,
-            matchBrackets: true,
-            mode: "text/x-java",
-            theme: "neo"
-        });
-    </script>  
-    <script src="javascript/jquery.js" > </script>
+      var javaEditor = CodeMirror.fromTextArea(document.getElementById("form:input"), {
+        height: 1000,
+        lineNumbers: true,
+        matchBrackets: true,
+        mode: "text/x-java",
+        theme: "neo"
+      });
+    </script>
+    <script src="javascript/jquery.js"></script>
     <script src="javascript/bootstrap.min.js"></script>
-    </h:body>
+</h:body>
 </html>
 
