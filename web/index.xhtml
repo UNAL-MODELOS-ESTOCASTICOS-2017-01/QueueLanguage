@@ -74,11 +74,21 @@
                 </h:form>
             </div>
             <div class="col-md-6">
-                <p>Número promedio de clientes en el sistema: #{code.l}</p>
-                <p>Número promedio de clientes esperando en cola:  #{code.LQ}</p>
-                <p>Cantidad promedio de tiempo que un cliente gasta en el sistema:  #{code.w}</p>
-                <p>Cantidad promedio de tiempo que un cliente gasta esperando en cola:  #{code.WQ}</p>
-                <p>Porcentaje de uso de los servidores: #{code.usage}</p>
+                <c:if test="#{code.showL}">
+                    <p>Average number of customers in the system: #{code.l}</p>
+                </c:if>
+                <c:if test="#{code.showLQ}">
+                    <p>Average number of customers waiting in queue:  #{code.LQ}</p>
+                </c:if>
+                <c:if test="#{code.showW}">
+                    <p>Average amount of time a customer spend in the system:  #{code.w}</p>
+                </c:if>
+                <c:if test="#{code.showWQ}">
+                    <p>Average amount of time a customer spend waiting in queue:  #{code.WQ}</p>
+                </c:if>
+                <c:if test="#{code.showUsage}">
+                    <p>Servers usage: #{code.usage}</p>
+                </c:if>
                 <br></br><br></br><br></br><br></br><br></br><br></br>
                 <p>Resultado de compilacion: </p>
                 <c:if test="#{code.error == 'Successful compilation'}">

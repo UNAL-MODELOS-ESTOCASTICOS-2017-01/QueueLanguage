@@ -35,7 +35,14 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    }
 
    @Override
-   public Boolean visitAnalitics( QueuingTParser.AnaliticsContext ctx) { return true; }
+   public Boolean visitAnalitics( QueuingTParser.AnaliticsContext ctx) {
+       if(ctx.ACS() != null) Simulation.showL = true;
+       if(ctx.ACQ() != null) Simulation.showLQ = true;
+       if(ctx.TCS() != null) Simulation.showW = true;
+       if(ctx.TCQ() != null) Simulation.showWQ = true;
+       if(ctx.US() != null) Simulation.showUsage = true;
+       return true;
+   }
 
    @Override
    public Boolean visitNode_property( QueuingTParser.Node_propertyContext ctx) {
@@ -59,7 +66,10 @@ public class QueuingLanguageVisitor extends QueuingTBaseVisitor<Boolean>{
    @Override
    public Boolean visitFooter( QueuingTParser.FooterContext ctx) 
    { 
-       visit(ctx.getChild(0));
+       System.out.println(ctx.getChildCount());
+       for ( int c = 0; c < ctx.getChildCount(); c ++ ) {
+           visit(ctx.getChild(c));
+       }
        return true; 
    }
 

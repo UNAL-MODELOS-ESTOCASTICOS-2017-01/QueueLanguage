@@ -27,6 +27,7 @@ public class Simulation {
     public static int from, to;
     public static double prob;
     public static double L, LQ, W, WQ, usage;
+    public static boolean showL, showLQ, showW, showWQ, showUsage;
     
     public static void init(){
         network = new ArrayList<>();
@@ -40,6 +41,7 @@ public class Simulation {
         history = new ArrayList<>();
         people = new ArrayList<>();
         Customer.AUTO_ID = 0;
+        showL = showLQ = showW = showWQ = showUsage = false;
     }
     
     public static void addEvent(Event v){
@@ -74,5 +76,11 @@ public class Simulation {
                 return i;
         }
         return -1;
+    }
+    
+    public static void printEvents(){
+        for(Event ev : history){
+            System.out.println(ev.getTime() + " tipo " + ev.getType() );
+        }
     }
 }

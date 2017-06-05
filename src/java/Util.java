@@ -13,42 +13,8 @@ import java.util.Random;
  */
 public class Util {
     private static Random rand = new Random();
-    
-    public enum Distribution {
-        POISSON, BINOMIAL, NORMAL, UNIFORME, EXPONENTIAL, NONE;
-    }
-    public static double getDistribution(Distribution dist){
-        switch(dist){
-            case POISSON:
-                return getPoisson();
-            case BINOMIAL:
-                return getBinomial();
-            case EXPONENTIAL:
-                return getExponential();
-        }
-        return getExponential();
-    }
-    //Poisson-Exponencial
-    public static double getExponential(){
-        return rand.nextDouble();
-    }
-    public static double getPoisson(){
-        return getPoisson(0.5);
-    }
-    public static double getPoisson(double lambda){
-        return rand.nextDouble();
-    }
-    //Binomial
-    public static double getBinomial(){
-        return getBinomial(0.5, 10);
-    }
-    public static double getBinomial(double p, double n){
-        return rand.nextDouble();
-    }
-    //Normal
-    public static double getNormal(){
-        return rand.nextGaussian();
-    }
+    public static double suma = 0, llamados = 0;
+
     //Uniforme
     public static double getUniform(){
         return getUniform(0.0, 1.0);
@@ -60,6 +26,9 @@ public class Util {
     //generate exponential variables
     public static double getExponential(double lambda)
     {
-        return -(1.0/lambda)*Math.log(1.0 - rand.nextDouble());
+        double temp = -(1.0/lambda)*Math.log(1.0 - rand.nextDouble());
+        suma += temp;
+        llamados += 1;
+        return temp;
     }
 }

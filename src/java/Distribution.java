@@ -30,7 +30,7 @@ public class Distribution {
         if ( lambda == -1 ) {
             return Util.getUniform(a, b);
         } else {
-            return Util.getPoisson(lambda);
+            return Util.getExponential(lambda);
         }
     }
     

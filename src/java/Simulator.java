@@ -84,7 +84,7 @@ class Simulator {
         // YA esta el objeto simulacion armado
         //printStructure();
         System.out.println("Numero de nodos " + Simulation.numberOfNodes);
-        runSimulation();        
+        runSimulation();   
     } 
     public void printStructure()
     {
@@ -183,6 +183,21 @@ class Simulator {
     }
     public double getUsage(){
         return Simulation.usage;
+    }
+    public boolean showL(){
+        return Simulation.showL;
+    }
+    public boolean showLQ(){
+        return Simulation.showLQ;
+    }
+    public boolean showW(){
+        return Simulation.showW;
+    }
+    public boolean showWQ(){
+        return Simulation.showWQ;
+    }
+    public boolean showUsage(){
+        return Simulation.showUsage;
     }
     public String getError(){
         return error;

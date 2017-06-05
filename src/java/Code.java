@@ -24,9 +24,11 @@ public class Code{
     private double W = 0.0;
     private double WQ = 0.0;
     private double usage = 0.0;
+    private boolean showL, showLQ, showW, showWQ, showUsage;
 
     
     public Code() {
+        showL = showLQ = showW = showWQ = showUsage = false;
     }
     
     public String getError() {
@@ -84,6 +86,48 @@ public class Code{
     public void setUsage(double usage) {
         this.usage = usage;
     }
+
+    public boolean isShowL() {
+        return showL;
+    }
+
+    public void setShowL(boolean showL) {
+        this.showL = showL;
+    }
+
+    public boolean isShowLQ() {
+        return showLQ;
+    }
+
+    public void setShowLQ(boolean showLQ) {
+        this.showLQ = showLQ;
+    }
+
+    public boolean isShowW() {
+        return showW;
+    }
+
+    public void setShowW(boolean showW) {
+        this.showW = showW;
+    }
+
+    public boolean isShowWQ() {
+        return showWQ;
+    }
+
+    public void setShowWQ(boolean showWQ) {
+        this.showWQ = showWQ;
+    }
+
+    public boolean isShowUsage() {
+        return showUsage;
+    }
+
+    public void setShowUsage(boolean showUsage) {
+        this.showUsage = showUsage;
+    }
+    
+    
     
     public void process()
     {
@@ -97,5 +141,10 @@ public class Code{
         WQ = S.getWQ();
         error = S.getError();
         usage = S.getUsage();
+        showL = S.showL();
+        showLQ = S.showLQ();
+        showW = S.showW();
+        showWQ = S.showWQ();
+        showUsage = S.showUsage();
     }    
 }
