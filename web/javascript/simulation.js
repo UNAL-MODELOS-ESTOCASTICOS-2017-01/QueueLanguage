@@ -8,6 +8,7 @@ var startLine;
 var response;
 function start() {
   $("#startButton").prop("disabled",true);
+  $("#uploadFile").prop("disabled",true);
   currentLine=startLine;
   var cy = cytoscape({
     container: document.getElementById('cy'),
@@ -103,6 +104,10 @@ function start() {
       currentLine++;
       setTimeout(readSimulationLine, 1000);
     }
+    else{
+      $("#startButton").prop("disabled",false);
+      $("#uploadFile").prop("disabled",false);
+    }
   }
   // Add message to queues
   addQTip("q");
@@ -110,7 +115,6 @@ function start() {
   addQTip("s");
   addQTip("end");
   readSimulationLine();
-  $("#startButton").prop("disabled",false);
 }
 function addFile(e) {
   var file = $("#uploadFile")[0].files[0];
